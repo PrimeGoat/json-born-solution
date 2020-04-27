@@ -15,6 +15,7 @@ const postFriend = (parameters) => {
       name,
       index: user.friends.length,
     }
+
     user.friends.push(newFriend);
     const updatedUsers = JSON.stringify(users, null, 2);
     fs.writeFile('./users.json', updatedUsers, (error) => {

@@ -2,7 +2,11 @@ const fs = require('fs');
 
 
 const postUser = (parameters) => {
-  const [name, age, eyeColor] = parameters;
+//   const [name, age, eyeColor] = parameters;
+  const name = parameters[0];
+  const age = parameters[1];
+  const eyeColor = parameters[2];
+
   fs.readFile('./users.json', (error, data) => {
     if (error) {
       throw error;
@@ -15,6 +19,7 @@ const postUser = (parameters) => {
       eyeColor,
       index: users.length,
     }
+
     users.push(newUser);
     const updatedUsers = JSON.stringify(users, null, 2);
     fs.writeFile('./users.json', updatedUsers, (error) => {
