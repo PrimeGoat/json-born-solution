@@ -6,6 +6,7 @@ const getUser = (i) => {
     if (error) {
       throw error;
     }
+
     const users = JSON.parse(data);
     console.log(users.find((user) => user.index === i));
     // or with a for loop

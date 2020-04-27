@@ -16,6 +16,10 @@ So we'll be doing this on the command line via Node, and in the _next_ challenge
 
 From our user's perspective, they will run our Node app with `node main.js`, possibly tacking on some extra parameters, and then get the result in the console. We'll have an interface for them using mock routes to describe what data we want to act on and how we want to act on it.  And then we'll use `process.argv` to parse what the user's input is, `fs.readFile` to grab it (or `fs.writeFile` to write it if the request calls for us to make changes), and `console.log` to output the raw data back to the user.
 
+Everything will be written to and from our `users.json` file, which has been prepopulated for you. If you want to get a fresh JSON file, there's a copy in `backup-db` directory. Make sure your code isn't doing anything with that backup file or you'll have to redownload the JSON file. Which, not the worst thing. But still.
+
+Let's dive in!
+
 
 ### The Steps
 
@@ -37,15 +41,21 @@ So how can we grab that information? Our old friend `process.argv`! Remember tha
 
 We'll use `fs.readFile` and `fs.writeFile` to get data to and fro our `users.json` file. Remember that these are asynchronous functions, and we'll be handling that through callbacks. And no, you are **not** allowed to use their evil twins from the synchronous universe, `fs.readFileSync` and `fs.writeFileSync`. We could use the callback practice, and running async code is always a better user experience anyway, as the app doesn't freeze until it's done with async. Don't do that to your users!
 
-So how do we use `fs`? It takes in a 
+So how do we use `fs`? I'l leave `writeFile` for YOUR research, but `fs.readFile` takes in two parameters: a string giving the relative path to the file, and a callback for `readFile` to call once it's finished reading the file. Your callback function itself takes in two parameters: an error that `readFile` will pass you if something went wrong reading the file and the contents of the file (a parameter we usually name `data`).
+
+Assuming the file exists and its JSON, what we've got is a nugget of JSON data. How do we convert it to a JS object? JSON.parse.
 
 
 -3- **Outputting To The User**
 
 This part's easy. Just `console.log`! Now, you DO have to make sure you're doing that in the right place, i.e., in your callback, where you actually _have_ the data. But otherwise: piece of cake.
 
+-4- **Converting Back To JSON, Writing To Files, And So On.**
 
-### Routes You'll Need
+We've been walking together, but it's time for you to forget your own path. Time to flex your research muscle (sometimes called the stack overflow muscle).
+
+
+### Your Routes
 
 It's recommended you go in this order, which is from easiest to hardest. But if you find one of the later ones particularly difficult, feel free to skip around!
 
